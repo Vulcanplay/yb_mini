@@ -1,0 +1,21 @@
+<view class="padding-horizontal light-bg">
+  
+  <view class="section">
+    <view class="section__title">手机号</view>
+    <input name="input" type="number" bindinput='setPhone' maxlength="11" placeholder-class="pc" placeholder="11位手机号码" />
+  </view>
+
+  <view class="section">
+    <view class="section__title">验证码</view>
+    <view class="row">
+      <input class="col col-67" bindinput='setCode' type="number" name="input" maxlength="4" placeholder-class="pc" placeholder="4位验证码" />
+      <view class='col col-33'>
+        <button class="button button-full" bindinput='setCode' disabled='{{sendCodeButton.disabled}}' bindtap="send">{{sendCodeButton.text}}</button>
+      </view>
+    </view>
+  </view>
+  
+  <view class="margin-top">
+    <button class="button button-orange button-full" bindtap='signup'>立即注册</button>
+  </view>
+</view>

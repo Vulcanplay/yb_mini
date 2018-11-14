@@ -1,0 +1,18 @@
+<view>
+  
+  <view class="no" bindtap="no">
+    <view>
+      不使用红包
+      <image src="{{isUseHB == 1 || isHasHB == 0 ? '../../../assets/icons/selected.png' : '../../../assets/icons/select.png'}}"></image>
+    </view>
+  </view>
+
+  <view class="quan" bindtap='use' wx:if="{{isHasHB == 1}}">
+      <view class="p">
+        <text>￥</text>50
+      </view>
+      <view class="n">延保抵用券</view>
+      <view class="clear"></view>
+      <image src="{{isUseHB == 0 ? '../../../assets/icons/selected.png' : '../../../assets/icons/select.png'}}"></image>
+    </view>
+</view>

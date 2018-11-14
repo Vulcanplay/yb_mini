@@ -1,0 +1,89 @@
+<view class="content">
+  <swiper indicator-dots="{{indicatorDots}}"
+    autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <view class="silder-img" style='background-image: url({{item}})'></view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="light-bg margin-bottom padding-horizontal" style="position: relative;">
+    <view class="price"><text>￥</text>{{productObject.PRODUCT007 || '暂无价格'}}<text class="rp">￥{{productObject.PRODUCT010 || '无指导价'}}</text></view>
+    <view class="des">{{activeObject.ACTIVITYPRODUCT003 || '暂无商品描述'}}</view>
+    <view class="city-change">
+      <view class="cc-content">
+        <picker bindchange="bindPickerChange" value="{{cityIndex}}" range="{{cityArray}}">
+          <view class="picker">
+            {{cityArray[cityIndex]}}
+          </view>
+        </picker>
+        <image src='../../assets/icons/arrow-down.png' style='width:16px; height:16px;'></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="title">看看都谁购买了</view>
+  <view class="list light-bg margin-bottom child-list" wx:if="{{beforArray.length != 0}}">
+    <view class="item ava" wx:for="{{beforArray}}" wx:key="index">
+      <image src="{{item.KHXX015 || '../../assets/img/avator.png'}}"></image>
+      <view class="item-content">
+        <view class="t">{{item.KHXX014 || '未知昵称'}}</view>
+        <text class="note">{{item.ORDER022}}</text>
+      </view>
+      <text class="price">{{item.ORDER006}}元</text>
+    </view>
+    <button class="button button-clear button-see-all" wx:if="{{!afterTag && afterArray.length != 0}}" bindtap='showAfter'>查看全部</button>
+    <view class="item ava" wx:for="{{afterArray}}" wx:key="index" wx:if="{{afterTag}}">
+      <image src="{{item.KHXX015 || '../../assets/img/avator.png'}}"></image> 
+      <view class="item-content">
+        <view class="t">{{item.KHXX014 || '未知昵称'}}</view>
+        <text class="note">{{item.ORDER022}}</text>
+      </view>
+      <text class="price">{{item.ORDER009}}元</text>
+    </view>
+  </view>
+  
+  <view class="light-bg padding text-center margin-bottom" wx:if="{{beforArray.length == 0}}">
+    <text style="color:#999999;font-size:13px;">暂无购买记录~</text>
+  </view>
+
+  <view class="title">商品描述</view>
+  <view class="flex-wrp padding-horizontal light-bg" style="flex-direction:column;">
+    <!-- <view class="flex-item t"></view><icon type="info" size='15' color='rgb(166,166,166)' style='padding-top:10px;'/> -->
+    <view class="flex-item" wx:for="{{productDes}}" wx:key="index">{{item}}</view>
+  </view>
+  <view class="has-footer light-bg"></view>
+</view>
+<view class="footer">
+  <view class="row" wx:if="{{canIUse}}">
+    <a bindtap="call" class="col border-right">
+      <view class="one"><image src="../../assets/icons/help.png"></image></view>
+      <view class="two">询价</view>
+    </a>
+    <button class="col border-right" bindtap="sign" wx:if="{{hasSign}}">
+      <view class="one"><image src="../../assets/icons/signup.png"></image></view>
+      <view class="two">登录</view>
+    </button>
+    <button class="col" open-type="share" disabled="{{productObject == null}}">
+      <view class="one"><image src="../../assets/icons/share.png"></image></view>
+      <view class="two">分享</view>
+    </button>
+    <view class="col col-50">
+      <button class="button button-full button-orange" disabled="{{productObject == null}}" bindtap="buy">立即购买</button>
+    </view>
+  </view>
+  <view wx:else>请升级微信版本</view>
+</view>
+<view class="view-drop-dark" wx:if="{{dark}}" bindtap="darkTip"></view>
+<view class="hb" wx:if="{{hb}}" bindtap='setHB'>
+  <image src="../../assets/icons/hb.png"></image>
+</view>
+<view class="view-drop-light" bindtap="lightTip" wx:if="{{light && !dark}}"></view>
+<view class="city-tip" wx:if="{{cityChange && !hb}}">
+  <view class="cc-c">
+    <view>定位显示您在{{thatCity}}</view>
+    <button class="button button-full button-orange" bindtap="changeCity">切换到{{thatCity}}</button>
+    <button class="button button-full button-light" bindtap="lightTip">继续浏览{{prevCity}}</button>
+  </view>
+</view>
+ <button class="button button-orange"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" style="position: fixed;left: 0;top: 0;z-index:99">获取手机号</button> 

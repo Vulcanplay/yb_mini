@@ -1,0 +1,12 @@
+.section{margin-top: 8px; position: relative;}
+.section input{
+  border-bottom: 1px solid #f8f8f8;
+  padding: 8px 0;
+  max-height: 50px; height:50px;
+}
+.section .section__title{ font-size: 16px; color: #666666;}
+.section .button{ font-size: 14px; color: #666666; padding: 0; margin-top: -2px; max-height: 45px; height:45px; line-height: 45px; margin-top:11px;}
+.pc{
+  font-size: 14px;
+  color: #999999;
+}

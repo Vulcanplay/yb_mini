@@ -1,0 +1,43 @@
+page{ background-color: #ffffff;}
+
+.no{
+  font-size: 16px;
+  position: relative;
+  color:#666666;
+  border-bottom: 1px solid #f5f5f5;
+}
+.no view{
+  padding: 8px 16px;
+}
+.quan image ,.no image{
+  width: 17px;
+  height: 18px;
+  position: absolute;
+  right: 16px;
+  top: calc(50% - 9px);
+}
+
+.quan{
+  position: relative;
+  border-bottom: 1px solid #f5f5f5;
+   width: 100%;
+   margin: 0 auto;
+   line-height: 60px;
+}
+.quan .p{
+  width: 30%;
+  float:left;
+  font-size: 24px;
+  color: #ff6d42;
+  text-align: center;
+}
+.quan .p text{
+  font-size: 17px;
+}
+.quan .n{
+  width: 70%;
+  float:left;
+  font-size: 14px;
+  color: #666666;
+}
+.quan .clear{ clear: both;}

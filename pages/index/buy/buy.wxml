@@ -1,0 +1,129 @@
+<view class="padding-horizontal light-bg" style="padding-bottom:2px;">
+  <view class="list text-center" bindtap="showInfo" hidden='{{submitParams != null}}'>
+    <image class="padding" src="../../../assets/icons/add.png" style="width:60px; height:60px;"></image>
+    <view class="item">添写资料</view>
+  </view>
+  <view class="row row-wrap sub-info" hidden='{{submitParams == null}}' bindtap="showInfo">
+      <view>{{submitParams.name}}</view>
+    　<view class="col col-50">{{submitParams.phoneNumber}}</view>
+    　<view class="col col-50">{{submitParams.carNo}}</view>
+      <image src="../../../assets/icons/more.png"></image>
+  </view>
+  <image src="../../../assets/icons/line.png" style="display:block; width: 100%; height: 4px;margin-bottom:16px;"></image>
+</view>
+<view class="list light-bg">
+  <view class="item">
+    <image src="{{activeObject.ACTIVITYPRODUCT004 || ''}}"></image>
+    <view class="h2">{{activeObject.ACTIVITYPRODUCT003 || '暂无商品描述'}}</view>
+    <view class="p"><text>￥</text>{{productObject.PRODUCT007 || '暂无价格'}}</view>
+  </view>
+  <view class="row quan">
+    <view class="col col-20">赠送</view>
+    <view class="col col-80">
+      <view class="row" wx:for="{{godsTipObject}}" wx:key="index">
+        <view class="col col-50">
+          <image src="../../../assets/icons/quan.png"></image>
+          <view>{{item.GODSTIP003}}</view>
+        </view>
+        <view class="col col-20"> </view>
+        <view class="col col-30">*{{item.GODSTIP016}}</view>
+        <!-- <view class="col col-20">*{{item.GODSTIP016}}</view>
+        <view class="col col-30">￥{{item.GODSTIP013}}</view> -->
+      </view>
+    </view>
+  </view>
+  <view class="row hb">
+    <view class="col col-20">红包</view>
+    <view class="col col-70" wx:if="{{isUseHB == 0 && isHasHB == 1}}" bindtap='seletHB'>
+      -<text>￥</text>50
+    </view>
+    <view class="col col-70" wx:else="{{isUseHB == 1 || isHasHB == 0}}" bindtap='seletHB' style='color:#999999'>
+      不使用红包
+    </view>
+    <view class="col col-10">
+      <image src="../../../assets/icons/more.png" style="width:16px; height:16px;"></image>
+    </view>
+  </view>
+  <view class='xj'>
+    小计<text> : ￥</text><text class="p">{{isUseHB == 0 && isHasHB == 1 ? productObject.PRODUCT007 - 50 : productObject.PRODUCT007}}</text>
+  </view>
+</view>
+
+<view class="footer">
+  <view class="row">
+    <button class="col col-50" style="padding: 0;">
+      <!-- <view class="one">￥{{productObject.PRODUCT007}}</view>
+      <view class="two">实付款：<text>￥{{productObject.PRODUCT007}}</text></view> -->
+      <view class='left_view'>
+        <view class="p">￥{{isUseHB == 0 && isHasHB == 1 ? productObject.PRODUCT007 - 50 : productObject.PRODUCT007}}</view>
+        <view class='yh' wx:if="{{isUseHB == 0 && isHasHB == 1}}">已优惠￥50</view>
+        <view class='yh' wx:else="{{isUseHB == 1 || isHasHB == 0}}">无优惠</view>
+      </view>
+    </button>
+    <view class="col col-50">
+      <button class="button button-full button-orange" wx:if="{{orderNo == null}}" open-type="getUserInfo" bindgetuserinfo="goBuy">确认支付</button>
+      <button class="button button-full button-orange" wx:if="{{orderNo != null}}" bindtap="sendWXPay">重新支付</button>
+    </view>
+  </view>
+</view>
+
+<view class="modal-box" hidden="{{infoFlag}}">
+  <view class="modal-body">
+    <view class="modal-content">
+        <view class="modal-header">
+          <view class="title">个人资料</view>
+          <button class="button button-clear" bindtap="hideInfo"><image src="../../../assets/icons/close.png"></image></button>
+        </view>
+        <view class="list m-list">
+          <view class="item item-input">
+            　联系人：
+            <input placeholder="联系人姓名" class="has-line" value="{{name}}" bindinput="setName"/>
+          </view>
+          <view class="row sex">
+            <view class="col col-20"></view>
+            <view class="col col-80">
+              <view class="row">
+                <view class="col col-20" data-sex="男" bindtap="changeSex">
+                  <image src="{{sex == '男' ? '../../../assets/icons/selected.png' : '../../../assets/icons/select.png'}}"></image>
+                  男
+                </view>
+                <view class="col col-20" data-sex="女" bindtap="changeSex">
+                  <image src="{{sex == '女' ? '../../../assets/icons/selected.png' : '../../../assets/icons/select.png'}}"></image>
+                  女
+                </view>
+              </view>
+            </view>
+          </view>
+          
+          <view class="item item-input has-line">
+            联系电话：
+            <input placeholder="请输入手机号码" value="{{phoneNumber}}" maxlength="11" type="number" bindinput="setPhoneNumber"/>
+          </view>
+          
+          <view class="item item-input">
+            　车牌号： 
+            <input placeholder="请输入车牌号" value="{{carNo}}" bindinput="setCarNo"/>
+          </view>
+
+          <view class="padding">
+            <button class="button button-orange button-full" bindtap='submitInfo'>确定</button>
+          </view>
+        </view>
+      </view>
+    </view>
+</view>
+
+<view class="modal-box" hidden="{{shareFlag}}">
+  <view class="modal-body">
+    <view class="modal-content">
+        <view class="modal-header">
+          <view class="title">支付成功</view>
+          <button class="button button-clear" bindtap="hideShare"><image src="../../../assets/icons/close.png"></image></button>
+        </view>
+
+        <view class="padding">
+          <button class="button button-orange button-full" open-type="share">分享</button>
+        </view>
+      </view>
+    </view>
+</view>
